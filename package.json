@@ -39,5 +39,13 @@
   "name": "amb-calculator",
   "version": "1.0.0",
   "author": "abhijithvijayan",
-  "description": ""
+  "description": "[![Build Status](https://travis-ci.org/abhijithvijayan/AMB-Calculator.svg?branch=master)](https://travis-ci.org/abhijithvijayan/AMB-Calculator)\r [![MIT](https://img.shields.io/dub/l/vibe-d.svg)](https://github.com/abhijithvijayan/AMB-Calculator/blob/master/LICENSE.md)",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/abhijithvijayan/AMB-Calculator.git"
+  },
+  "bugs": {
+    "url": "https://github.com/abhijithvijayan/AMB-Calculator/issues"
+  },
+  "homepage": "https://github.com/abhijithvijayan/AMB-Calculator#readme"
 }

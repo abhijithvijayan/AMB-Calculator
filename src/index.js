@@ -30,8 +30,9 @@ function start() {
 
   function eventOne() {
     hide(".sub-content");
-    hide("#final-content-holder");
-    hide(".summary");
+    // hide("#final-content-holder");
+    // hide(".summary");
+    hide("#daysList");
     init();
     document.querySelector(".submitDays").addEventListener("click", days);
   }
@@ -64,17 +65,22 @@ function start() {
     var remDays = monthDays - days;
     var curAvg = Math.round(sum / days);
     var avgMinBal = Math.round((monthDays * 1000 - sum) / remDays);
-    final(curAvg, avgMinBal);
+    if ( avgMinBal <= -1) {
+      final(curAvg, 0);
+    } 
+    else {
+      final(curAvg, avgMinBal);
+    }
   }
 
   function final(curAvg, avgMinBal) {
-    show("#final-content-holder");
+    show("#daysList");
     document.querySelector(".avgCurrent").innerHTML = '<strong>' + curAvg + '</strong>';
     document.querySelector(".finalCalc").innerHTML = '<strong>' + avgMinBal + '</strong>';
   }
 
   function addItem(day, rupee) {
-    show(".summary");
+    // show(".summary");
     var ul = document.getElementById("dynamic-list");
     var li = document.createElement("li");
     li.setAttribute("id", day);
