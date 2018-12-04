@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>AMB - Calculator</title>
+  <link href="css/main.2ce0834b69fae8aac8a1.css" rel="stylesheet"></head>
+  <body>
+
+    <!-- CALENDER -->
+
+    <!-- <section id="home">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12 mx-auto">
+              <div id="calendar">
+                  <div id="calendar_header">
+                    <i class="icon-chevron-left fas fa-chevron-left"></i>
+                    <h1></h1>
+                    <i class="icon-chevron-right fas fa-chevron-right"></i>
+                  </div>
+                  <div id="calendar_weekdays"></div>
+                  <div id="calendar_content"></div>
+                </div>
+          </div>
+        </div>
+      </div>
+    </section> -->
+
+    <section id="home">
+        <div class="container text-center">
+          <h2>Average Monthly Balance-Calculator</h2>
+        </div>
+    </section>
+
+    <section id="content">
+      <div class="container">
+          <div class="row p-5">
+            <div class="col-md-4 main-content mx-auto">
+                <label for="amount">Enter number of days passed : </label>
+                <div class="input-group mb-3">
+                  <input type="text" class="form-control date" id="date" aria-describedby="date" maxlength="2">
+                </div>
+                <input class="btn btn-primary submitDays" id="Submit" type="button" value="SUBMIT">
+                <input class="btn btn-danger resetDays" id="Submit" type="button" value="RESET">
+            </div>
+            <div class="col-md-5 sub-content mx-auto">
+                <label for="amount">Enter the Closing Balance of the day : <span class="text-inner">1</span></label>
+                <div class="input-group mb-3">
+                  <input type="text" class="form-control amount" id="amount" aria-describedby="amount" maxlength="8">
+                </div>
+                <input class="btn btn-primary submit" id="Submit" type="button" value="SUBMIT">
+                <input class="btn btn-danger reset" id="Submit" type="button" value="RESET">
+            </div>
+          </div>
+      </div>
+    </section>
+
+    <section id="daysList">
+      <div class="container">
+            <div class="row text-center">
+              <div class="col-md-5 mx-auto">
+                <h2 class="summary">Account Summary</h2>
+                <ul id="dynamic-list"></ul>
+              </div>
+          </div>
+          <div class="row text-center" id="final-content-holder">
+              <div class="col-md-12 mx-auto">
+
+                <br /><br /><br /><br />
+                
+                <h2>Average Monthly Balance Summary</h2>
+                <div><p><br />Existing Average Balance for the Month : <span class="avgCurrent"></span> Rupees.</p></div>
+                <p>Average Balance to be maintained in the remaining days of the month <span class="finalCalc"></span> Rupees.</p>
+              </div>
+              <!-- <input class="new" id="Submit" type="button" value="NEW"> -->
+              <button class="btn btn-primary new" value="Refresh Page" onClick="window.location.reload()">New</button>
+          </div>
+      </div>
+    </section>
+
+  <script type="text/javascript" src="main.js"></script></body>
+</html>
