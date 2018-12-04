@@ -1,0 +1,41 @@
+html, body {
+  background: #fff;
+  margin: 0;
+  height: 100%;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.btn:focus,.btn:active {
+  outline: none !important;
+  box-shadow: none;
+}
+
+/* HTML5 display-role reset for older browsers */
+
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
+}
+
+ol,
+ul {
+  list-style: none;
+}
+
+a {
+  &:hover {
+    text-decoration: none;
+  }
+}
