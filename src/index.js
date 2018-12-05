@@ -3,120 +3,122 @@ import "./sass/main.scss";
 
 // Let month = decemenber -> 31 days
 
-function start() {
-  var sum = 0,
-    amount,
-    prev = 0;
-  var monthDays = 31;
-
-  eventOne();
-
-  function init() {
-    document.querySelector(".amount").value = "";
-  }
-
-  function hide(x) {
-    document.querySelector(x).style.display = "none";
-  }
-
-  function show(x) {
-    document.querySelector(x).style.display = "block";
-  }
-
-  function reset() {
-    amount = 0;
-    document.querySelector(".date").value = "";
-  }
-
-  function eventOne() {
-    hide(".sub-content");
-    // hide("#final-content-holder");
-    // hide(".summary");
-    hide("#daysList");
-    init();
-    document.querySelector(".submitDays").addEventListener("click", days);
-  }
-
-  function amountCalc(i, days) {
-    document.querySelector(".submit").addEventListener("click", function() {
-      document.querySelector(".text-inner").textContent = i + 1;
-      amount = document.querySelector(".amount").value;
-
-      if (amount == "") {
-        sum += prev;
-        addItem(i, prev);
-      } else {
-        addItem(i, amount);
-        sum += Math.floor(Math.round(amount));
-        init();
-        prev = Math.floor(Math.round(amount));
-      }
-
-      console.log(sum);
-      ++i;
-      if (i > days) {
-        hide(".sub-content");
-        calcAvg(sum, days);
-      }
-    });
-  }
-
-  function calcAvg(sum, days) {
-    var remDays = monthDays - days;
-    var curAvg = Math.round(sum / days);
-    var avgMinBal = Math.round((monthDays * 1000 - sum) / remDays);
-    if ( avgMinBal <= -1) {
-      final(curAvg, 0);
-    } 
-    else {
-      final(curAvg, avgMinBal);
-    }
-  }
-
-  function final(curAvg, avgMinBal) {
-    show("#daysList");
-    document.querySelector(".avgCurrent").innerHTML = '<strong>' + curAvg + '</strong>';
-    document.querySelector(".finalCalc").innerHTML = '<strong>' + avgMinBal + '</strong>';
-  }
-
-  function addItem(day, rupee) {
-    // show(".summary");
-    var ul = document.getElementById("dynamic-list");
-    var li = document.createElement("li");
-    li.setAttribute("id", day);
-    li.appendChild(
-      document.createTextNode("Day " + day + " | " + "Rupee(s) " + rupee)
-    );
-    ul.appendChild(li);
-  }
-
-  function days() {
-    var days = document.querySelector(".date").value;
-    Math.floor(days);
-    hide(".main-content");
-    show(".sub-content");
-    console.log("days = " + days);
-    amountCalc(1, days);
-    reset();
-  }
-
-  document.querySelector(".resetDays").addEventListener("click", reset);
-  document.querySelector(".reset").addEventListener("click", init);
-
-  // document.querySelector(".new").addEventListener("click", function() {
-  //   show('.main-content');
-  //   reset();
-  //   init();
-  //   eventOne();
-  // });
-}
-
 start();
 
+function start() {
+    // declarations
+    var sum = 0,
+      amount,
+      prev = 0;
+    var monthDays = 31;
 
+    init();
 
+    // Initializing
+    function init() {
+      hide(".sub-content");
+      hide("#daysList");
+      resetInput();
+      // Read days function
+      document.querySelector(".submitDays").addEventListener("click", function() {
+          var days = document.querySelector(".date").value;
+          Math.floor(days);
+          hide(".main-content");
+          show(".sub-content");
+          // console.log("days = " + days);
+          amountCalc(1, days);
+          reset();
+      });
+    }
 
+    // Looping Function
+    function amountCalc(i, days) {
+      document.querySelector(".submit").addEventListener("click", function() {
+        document.querySelector(".text-inner").textContent = i + 1;
+        // read the amount
+        amount = document.querySelector(".amount").value;
 
+        if (amount == "") {
+          // same amount as previous day
+          sum += prev;
+          addItem(i, prev);
+        }
+        else {
+          addItem(i, amount);
+          sum += Math.floor(Math.round(amount));
+          resetInput();
+          prev = Math.floor(Math.round(amount));
+        }
+
+        // console.log(sum);
+        ++i;
+        if (i > days) {
+          hide(".sub-content");
+          calcAvg(sum, days);
+        }
+      });
+    }
+
+    // Display List
+    function addItem(day, rupee) {
+      // show(".summary");
+      var ul = document.getElementById("dynamic-list");
+      var li = document.createElement("li");
+      li.setAttribute("id", day);
+      li.appendChild(
+        document.createTextNode("Day " + day + " | " + "Rupee(s) " + rupee)
+      );
+      ul.appendChild(li);
+    }
+
+    // Average Calculator
+    function calcAvg(sum, days) {
+      var remDays = monthDays - days;
+      var curAvg = Math.round(sum / days);
+      // 1000 is the minimum needed amount
+      var avgMinBal = Math.round((monthDays * 1000 - sum) / remDays);
+
+      if (avgMinBal <= -1) {
+        final(curAvg, 0);
+      }
+      else {
+        final(curAvg, avgMinBal);
+      }
+    }
+
+    // Display Average
+    function final(curAvg, avgMinBal) {
+      show("#daysList");
+      document.querySelector(".avgCurrent").innerHTML =
+        "<strong>" + curAvg + "</strong>";
+      document.querySelector(".finalCalc").innerHTML =
+        "<strong>" + avgMinBal + "</strong>";
+    }
+
+    document.querySelector(".resetDays").addEventListener("click", reset);
+    document.querySelector(".reset").addEventListener("click", resetInput);
+
+    function resetInput() {
+      document.querySelector(".amount").value = "";
+    }
+    function reset() {
+      amount = 0;
+      document.querySelector(".date").value = "";
+    }
+    function hide(element) {
+      document.querySelector(element).style.display = "none";
+    }
+    function show(element) {
+      document.querySelector(element).style.display = "block";
+    }
+
+    // document.querySelector(".new").addEventListener("click", function() {
+    //   show('.main-content');
+    //   reset();
+    //   resetInput();
+    //   init();
+    // });
+}
 
 
 // CALENDER
