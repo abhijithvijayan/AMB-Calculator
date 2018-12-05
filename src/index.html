@@ -9,7 +9,7 @@
 
     <!-- CALENDER -->
 
-    <!-- <section id="home">
+    <!-- <section id="calender">
       <div class="container">
         <div class="row">
           <div class="col-md-12 mx-auto">
@@ -28,13 +28,12 @@
     </section> -->
 
     <section id="home">
-        <div class="container text-center">
-          <h2>Average Monthly Balance-Calculator</h2>
-        </div>
-    </section>
-
-    <section id="content">
       <div class="container">
+        <div class="row">
+          <div class="col-md-12 text-center">
+              <h2>Average Monthly Balance-Calculator</h2>
+          </div>
+        </div>
         <form>
           <div class="form-row p-5">
             <div class="col-md-4 main-content mx-auto">
@@ -50,35 +49,27 @@
                 <label for="amount">Enter the Closing Balance of the day : <span class="text-inner">1</span></label>
                 <input type="text" class="form-control amount mb-3" id="amount" placeholder="" value="" autocomplete="off" maxlength="8">
                 <!-- buttons -->
-                <button class="btn btn-primary submit" id="submit-btn" type="submit">SUBMIT</button>
-                <button class="btn btn-danger reset" id="submit-btn" type="button">RESEY</button>
+                <button class="btn btn-primary submit-btn" id="submit-btn" type="submit">SUBMIT</button>
+                <button class="btn btn-danger reset" id="submit-btn" type="button">RESET</button>
                 <button class="btn btn-light new" value="Refresh Page" onClick="window.location.reload()">NEW</button>
             </div>
           </div>
         </form>
-      </div>
-    </section>
-
-    <section id="daysList">
-      <div class="container">
-            <div class="row text-center">
-              <div class="col-md-5 mx-auto">
-                <h2 class="summary">Account Summary</h2>
-                <ul id="dynamic-list"></ul>
-              </div>
-          </div>
-          <div class="row text-center" id="final-content-holder">
-              <div class="col-md-12 mx-auto">
-
-                <br /><br /><br /><br />
-                
-                <h2>Average Monthly Balance Summary</h2>
-                <div><p><br />Existing Average Balance for the Month : <span class="avgCurrent"></span> Rupees.</p></div>
-                <p>Average Balance to be maintained in the remaining days of the month <span class="finalCalc"></span> Rupees.</p>
-                <button class="btn btn-primary new" value="Refresh Page" onClick="window.location.reload()">New</button>
-              </div>
-              <!-- <input class="new" id="Submit" type="button" value="NEW"> -->
-          </div>
+        <div class="row text-center" id="acc-summary">
+            <div class="col-md-5 mx-auto">
+              <h2 class="summary">Account Summary</h2>
+              <ul id="dynamic-list"></ul>
+            </div>
+        </div>
+        <div class="row text-center" id="final-content-holder">
+            <div class="col-md-12 mx-auto">
+              <br /><br /><br /><br />
+              <h2>Average Monthly Balance Summary</h2>
+              <div><p><br />Existing Average Balance for the Month : <span class="avgCurrent"></span> Rupees.</p></div>
+              <p>Average Balance to be maintained in the remaining days of the month <span class="finalCalc"></span> Rupees.</p>
+              <button class="btn btn-primary new mt-3" value="Refresh Page" onClick="window.location.reload()">New</button>
+            </div>
+        </div>
       </div>
     </section>
 

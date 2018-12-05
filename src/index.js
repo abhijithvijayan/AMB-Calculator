@@ -16,8 +16,11 @@ function start() {
 
     // Initializing
     function init() {
+      // hide all
       hide(".sub-content");
-      hide("#daysList");
+      hide("#final-content-holder");
+      hide('#acc-summary');
+      
       resetInput();
       // Read days function
       document.querySelector(".submitDays").addEventListener("click", () => {
@@ -36,7 +39,7 @@ function start() {
 
     // Looping Function
     function amountCalc(i, days) {
-      document.querySelector(".submit").addEventListener("click", () => {
+      document.querySelector(".submit-btn").addEventListener("click", () => {
         document.querySelector(".text-inner").textContent = i + 1;
         // read the amount
         amount = document.querySelector(".amount").value;
@@ -72,6 +75,7 @@ function start() {
         document.createTextNode("Day " + day + " | " + "Rupee(s) " + rupee)
       );
       ul.appendChild(li);
+      show('#acc-summary');
     }
 
     // Average Calculator
@@ -91,7 +95,7 @@ function start() {
 
     // Display Average
     function final(curAvg, avgMinBal) {
-      show("#daysList");
+      show("#final-content-holder");
       document.querySelector(".avgCurrent").innerHTML =
         "<strong>" + curAvg + "</strong>";
       document.querySelector(".finalCalc").innerHTML =

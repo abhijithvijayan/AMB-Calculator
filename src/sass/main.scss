@@ -5,11 +5,9 @@
 @import "reset";
 
 @import "home";
-@import "content";
-@import "daysList";
 
 body, html {
-  background-color: #F5F1E9;
+  background-color: #000;
   background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('https://images.pexels.com/photos/248159/pexels-photo-248159.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260');
   background-size: cover;
   background-repeat: no-repeat;
