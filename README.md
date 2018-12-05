@@ -1,9 +1,9 @@
-# Average Monthly Balance-Hackulator
+# Average Monthly Balance-Calculator
 
-[![Build Status](https://travis-ci.org/abhijithvijayan/AMB-Hackulator.svg?branch=master)](https://travis-ci.org/abhijithvijayan/AMB-Hackulator)
-[![MIT](https://img.shields.io/dub/l/vibe-d.svg)](https://github.com/abhijithvijayan/AMB-Hackulator/blob/master/LICENSE.md)
+[![Build Status](https://travis-ci.org/abhijithvijayan/AMB-Calculator.svg?branch=master)](https://travis-ci.org/abhijithvijayan/AMB-Calculator)
+[![MIT](https://img.shields.io/dub/l/vibe-d.svg)](https://github.com/abhijithvijayan/AMB-Calculator/blob/master/LICENSE.md)
 
-https://abhijithvijayan.github.io/AMB-Hackulator/
+https://abhijithvijayan.github.io/AMB-Calculator/
 
  To use the calculator, please follow the steps given below:
 
