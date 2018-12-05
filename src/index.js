@@ -20,20 +20,23 @@ function start() {
       hide("#daysList");
       resetInput();
       // Read days function
-      document.querySelector(".submitDays").addEventListener("click", function() {
+      document.querySelector(".submitDays").addEventListener("click", () => {
           var days = document.querySelector(".date").value;
-          Math.floor(days);
-          hide(".main-content");
-          show(".sub-content");
-          // console.log("days = " + days);
-          amountCalc(1, days);
-          reset();
+          // validator
+          if(days != '') {
+            Math.floor(days);
+            hide(".main-content");
+            show(".sub-content");
+            console.log("days = " + days);
+            amountCalc(1, days);
+            reset();
+          }
       });
     }
 
     // Looping Function
     function amountCalc(i, days) {
-      document.querySelector(".submit").addEventListener("click", function() {
+      document.querySelector(".submit").addEventListener("click", () => {
         document.querySelector(".text-inner").textContent = i + 1;
         // read the amount
         amount = document.querySelector(".amount").value;
@@ -111,13 +114,6 @@ function start() {
     function show(element) {
       document.querySelector(element).style.display = "block";
     }
-
-    // document.querySelector(".new").addEventListener("click", function() {
-    //   show('.main-content');
-    //   reset();
-    //   resetInput();
-    //   init();
-    // });
 }
 
 
