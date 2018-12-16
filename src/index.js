@@ -1,6 +1,10 @@
 import "bootstrap";
 import "./sass/main.scss";
 
+
+/* ------------------------------ */
+
+// variables
 var sum = 0,
   amount,
   prev = 0,
@@ -10,71 +14,57 @@ var sum = 0,
   varCounter = 0,
   finalSum;
 
-  init();
 // Initializing
-function init() {
-  // hide all
+initialize();
 
-  // hide(".sub-content");
+function initialize() {
   hide("#final-content-holder");
   hide("#acc-summary");
-  hide(".main-content");
-
   resetInput();
-  // Read days function
-  // document.querySelector(".submitDays").addEventListener("click", () => {
-  //   var days = document.querySelector(".date").value;
-  //   // validator
-  //   if (days != "") {
-  //     Math.floor(days);
-  //     hide(".main-content");
-  //     show(".sub-content");
-  //     console.log("days = " + days);
-  //     amountCalc(1, days);
-  //     reset();
-  //   }
-  // });
-
-  // amountCalc(1, 3);
-
 }
 
-document.getElementById("calculate").addEventListener('click', () => {
+// calculate button
+document.getElementById("calculate").addEventListener("click", () => {
   calcAvg(sum, varCounter, total_days);
+  if (sum == 0) {
+    alert("Please enter Amount");
+  } else {
+    hide("#calendar-wrap");
+    hide("#calculate");
+    hide(".form-row");
+    hide(".header-text");
+  }
 });
 
-// Looping Function
+// main function
 function calculation(i) {
-  // if(varCounter == -1) {
-  //   varCounter = 0;
-  //   document.querySelector(".submit-btn").addEventListener('click', () => {});
-  //   return;
-  // }
-// function amountCalc(i, days) {
   function doCalculation() {
+    if (amount < 0) {
+      alert("Please enter Amount");
+      return;
+    }
     amount = document.querySelector(".amount").value;
     console.log(amount);
     if (amount == "") {
       // same amount as previous day
       sum += prev;
       addItem(i, prev);
-    } else {
-      addItem(i, amount);
-      sum += Math.floor(Math.round(amount));
-      resetInput();
-      prev = Math.floor(Math.round(amount));
+    } 
+    else {
+        addItem(i, amount);
+        sum += Math.floor(Math.round(amount));
+        resetInput();
+        prev = Math.floor(Math.round(amount));
     }
     removeSelectProperty();
-    document.querySelector(".submit-btn").removeEventListener('click', doCalculation);
-  
+    // removing event listener multiple fires
+    document.querySelector(".submit-btn").removeEventListener("click", doCalculation);
   }
-  document.querySelector(".submit-btn").addEventListener('click', doCalculation);
-
+  document.querySelector(".submit-btn").addEventListener("click", doCalculation);
 }
 
-// Display List
+// creating table
 function addItem(day, rupee) {
-  // show(".summary");
   var ul = document.getElementById("dynamic-list");
   var li = document.createElement("li");
   li.setAttribute("id", day);
@@ -85,14 +75,12 @@ function addItem(day, rupee) {
   show("#acc-summary");
 }
 
-// Average Calculator
+// calculating function
 function calcAvg(sum, days, total_days) {
   var remDays = total_days - days;
-  console.log(total_days);
   var curAvg = Math.round(sum / days);
   // 1000 is the minimum needed amount
   var avgMinBal = Math.round((total_days * 1000 - sum) / remDays);
-
   if (avgMinBal <= -1) {
     final(curAvg, 0);
   } else {
@@ -109,27 +97,44 @@ function final(curAvg, avgMinBal) {
     "<strong>" + avgMinBal + "</strong>";
 }
 
-// document.querySelector(".resetDays").addEventListener("click", reset);
+// submit button init
+document.querySelector(".submit-btn").addEventListener("click", () => {
+  if (varCounter == 0) {
+    alert("Please Select Date");
+  } else {
+    if (amount < 0) {
+      alert("Please enter Amount");
+    }
+  }
+});
+
+// reset button
 document.querySelector(".reset").addEventListener("click", resetInput);
 
+// reset input function
 function resetInput() {
   document.querySelector(".amount").value = "";
-  // removeSelection();
 }
+
+// reset function
 function reset() {
   amount = 0;
   document.querySelector(".date").value = "";
 }
+
+// hide elements
 function hide(element) {
   document.querySelector(element).style.display = "none";
 }
+
+// show elements
 function show(element) {
   document.querySelector(element).style.display = "block";
 }
 
-/* ================================================================= */
+/* ========================================================================== */
 
-// CALENDER
+// CALENDAR
 
 class Calendar {
   constructor(id) {
@@ -173,8 +178,8 @@ class Calendar {
 						</div>
 
 						<div class="calendar__head-text">
-							<span id='calendar-month' class="calender-header-text-month">${month}</span>
-							<span id='calendar-year' class="calender-header-text-year">${year}</span>
+							<span id='calendar-month' class="calendar-header-text-month">${month}</span>
+							<span id='calendar-year' class="calendar-header-text-year">${year}</span>
 						</div>
 
 						<div id='calendar-right-btn' class="calendar__arrow">
@@ -208,11 +213,13 @@ class Calendar {
     ).getDate();
     let first_week_day = new Date( //number of the first day of the current month f.e. monday->1, wednesday->3
       date.getFullYear(),
-      date.getMonth(), 2
+      date.getMonth(),
+      2
     ).getDay();
     let current_month_last_day = new Date(
       date.getFullYear(),
-      date.getMonth() + 1, 0
+      date.getMonth() + 1,
+      0
     ).getDate();
 
     let days_array = new Array(42);
@@ -272,10 +279,10 @@ class Calendar {
 
         //add the styles that depend on what month the day belongs to
         td.classList.add("calendar-cell");
-        
+
         if (days_array[i].from !== "current month") {
           td.classList.add("calendar-cell-gray");
-        } 
+        }
         // else {
         //   // adds style to current day
         //   if (current_month && this.selected_date.getDate() == days_array[i].number) {
@@ -360,6 +367,9 @@ class Calendar {
     this.setDateTo(this.displayed_date);
   }
 
+// integrated functions
+/* ======================================================= */
+
   //handles user clicks on cells
   selectHandler(e) {
     if (e.target.classList.contains("calendar-cell-gray")) return; //only days of current month can be selected
@@ -367,25 +377,21 @@ class Calendar {
     if (e.target.classList.contains("noMoreSelection")) return; // can't be selected anymore
     if (e.target.classList.contains("calendar-cell-selected")) {
       e.target.id = "delete";
-       removeSelection();
-       return;
+      removeSelection();
+      return;
     }
-    // {
-    //   removeSelectProperty();
-    //   console.log("happy");
-    // }
-    
+
     this.selected_date = new Date(
       this.displayed_date.getFullYear(),
       this.displayed_date.getMonth(),
       e.target.innerHTML
     );
-    
+
     // date
     current_selected_date = this.selected_date.getDate();
     console.log(current_selected_date);
-    
-    // calculate amount
+
+    // call calculation function
     calculation(current_selected_date);
 
     e.target.id = "selected_date";
@@ -395,7 +401,9 @@ class Calendar {
   }
 }
 
+const calendar = new Calendar("calendar-wrap");
 
+// remove the selected and make it non selectable
 var removeSelectProperty = () => {
   let prev_selected = document.getElementById("selected_date");
   if (prev_selected) {
@@ -403,15 +411,13 @@ var removeSelectProperty = () => {
     prev_selected.id = "";
     prev_selected.classList.add("noMoreSelection");
   }
-}
+};
 
+// remove the selected
 var removeSelection = () => {
   let prev_selected = document.getElementById("delete");
   prev_selected.classList.remove("calendar-cell-selected");
   prev_selected.id = "";
   varCounter--;
   console.log(finalSum);
-}
-
-
-const calendar = new Calendar("calendar-wrap");
+};
