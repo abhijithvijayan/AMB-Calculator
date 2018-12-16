@@ -1,5 +1,6 @@
 import "bootstrap";
 import "./sass/main.scss";
+import { read } from "fs";
 
 
 /* ------------------------------ */
@@ -23,6 +24,23 @@ function initialize() {
   resetInput();
 }
 
+function test(val) {
+  for(i = 0; i < varCounter; i++) {
+    if(val == Ar[i]) {
+      Ar[i] = Ar[varCounter-1];
+      varCounter--;
+    }
+  }
+}
+
+document.querySelector(".submit-btn").addEventListener("click", () => {
+  var newFn = () => {
+    for(i = 0; i < varCounter; i++) {
+      calculation(Ar[i]);
+    }
+  }
+});
+
 // main function
 function calculation(i) {
   function doCalculation() {
@@ -45,9 +63,10 @@ function calculation(i) {
     }
     removeSelectProperty();
     // removing event listener multiple fires
-    document.querySelector(".submit-btn").removeEventListener("click", doCalculation);
+    // document.querySelector(".submit-btn").removeEventListener("click", doCalculation);
   }
-  document.querySelector(".submit-btn").addEventListener("click", doCalculation);
+  doCalculation();
+  // document.querySelector(".submit-btn").addEventListener("click", doCalculation);
 }
 
 // creating table
@@ -378,6 +397,7 @@ class Calendar {
     if (e.target.classList.contains("calendar-cell-selected")) {
       e.target.id = "delete";
       removeSelection();
+      test(this.selected_date.getDate());
       return;
     }
 
@@ -392,16 +412,26 @@ class Calendar {
     console.log(current_selected_date);
 
     // call calculation function
-    calculation(current_selected_date);
+
+    // calculation(current_selected_date);
+    readArray(current_selected_date, varCounter);
 
     e.target.id = "selected_date";
     e.target.classList.add("calendar-cell-selected");
 
-    varCounter++;
+    ++varCounter;
   }
 }
 
-const calendar = new Calendar("calendar-wrap");
+var Ar = [];
+var i;
+var readArray = (value, i) => {
+  Ar[i] = value;
+}
+
+
+
+
 
 // remove the selected and make it non selectable
 var removeSelectProperty = () => {
@@ -421,3 +451,8 @@ var removeSelection = () => {
   varCounter--;
   console.log(finalSum);
 };
+
+
+
+// =========================================== //
+const calendar = new Calendar("calendar-wrap");
