@@ -7,10 +7,11 @@ https://abhijithvijayan.github.io/AMB-Calculator/
 
  To use the calculator, please follow the steps given below:
 
-- Select your account Scheme. AMB(Average Monthly Balance) required for the scheme will be displayed on screen.
-- Select a date and Enter the balance amount for that day (end of day balance). 
+- Select your account Scheme(1000 RS scheme is default). 
+<!-- AMB(Average Monthly Balance) required for the scheme will be displayed on screen. -->
+- Select a date(or multiple dates) and Enter the balance amount for that day(s) (end of day balance). 
         
-    - Repeat this for all dates of the month on which transactions have been made. 
+    - Repeat this for all(optional) dates of the month on which transactions have been made. 
     <!-- Days having same closing balance should be combinely selected. -->
 - In the account summary, you will be able to see the details of inputs provided by you. 
 
@@ -20,10 +21,8 @@ https://abhijithvijayan.github.io/AMB-Calculator/
 ## TODO list
 
 - [ ] Make the Graphical User Interfaces look better
-- [ ] [Calendar](https://github.com/RomanLevak/pure-javascript-calendar-component) Implementation 
+- [ ] Calendar Implementation 
 - [ ] Min Balance User Input 
-
-This code was put together in about 4 hours, so it's not necessarily complete and the prettiest! 
 
 ## Licence
 Code released under the [MIT License](LICENSE.md).
@@ -31,6 +30,6 @@ Code released under the [MIT License](LICENSE.md).
 ## References and Assets
 
 https://www.federalbank.co.in/amb-calculator
-https://github.com/RomanLevak/pure-javascript-calendar-component
 
-![1](src/assets/1.png)
+![](https://i.imgur.com/Dp64g8u.png)
+![](https://i.imgur.com/vMT0Rdy.png)
