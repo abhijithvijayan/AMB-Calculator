@@ -6,265 +6,368 @@ import "./sass/main.scss";
 start();
 
 function start() {
-    // declarations
-    var sum = 0,
-      amount,
-      prev = 0;
-    var monthDays = 31;
+  // declarations
+  var sum = 0,
+    amount,
+    prev = 0;
+  var monthDays = 31;
 
-    init();
+  init();
 
-    // Initializing
-    function init() {
-      // hide all
-      hide(".sub-content");
-      hide("#final-content-holder");
-      hide('#acc-summary');
-      
-      resetInput();
-      // Read days function
-      document.querySelector(".submitDays").addEventListener("click", () => {
-          var days = document.querySelector(".date").value;
-          // validator
-          if(days != '') {
-            Math.floor(days);
-            hide(".main-content");
-            show(".sub-content");
-            console.log("days = " + days);
-            amountCalc(1, days);
-            reset();
-          }
-      });
-    }
+  // Initializing
+  function init() {
+    // hide all
+    hide(".sub-content");
+    hide("#final-content-holder");
+    hide("#acc-summary");
 
-    // Looping Function
-    function amountCalc(i, days) {
-      document.querySelector(".submit-btn").addEventListener("click", () => {
-        document.querySelector(".text-inner").textContent = i + 1;
-        // read the amount
-        amount = document.querySelector(".amount").value;
-
-        if (amount == "") {
-          // same amount as previous day
-          sum += prev;
-          addItem(i, prev);
-        }
-        else {
-          addItem(i, amount);
-          sum += Math.floor(Math.round(amount));
-          resetInput();
-          prev = Math.floor(Math.round(amount));
-        }
-
-        // console.log(sum);
-        ++i;
-        if (i > days) {
-          hide(".sub-content");
-          calcAvg(sum, days);
-        }
-      });
-    }
-
-    // Display List
-    function addItem(day, rupee) {
-      // show(".summary");
-      var ul = document.getElementById("dynamic-list");
-      var li = document.createElement("li");
-      li.setAttribute("id", day);
-      li.appendChild(
-        document.createTextNode("Day " + day + " | " + "Rupee(s) " + rupee)
-      );
-      ul.appendChild(li);
-      show('#acc-summary');
-    }
-
-    // Average Calculator
-    function calcAvg(sum, days) {
-      var remDays = monthDays - days;
-      var curAvg = Math.round(sum / days);
-      // 1000 is the minimum needed amount
-      var avgMinBal = Math.round((monthDays * 1000 - sum) / remDays);
-
-      if (avgMinBal <= -1) {
-        final(curAvg, 0);
+    resetInput();
+    // Read days function
+    document.querySelector(".submitDays").addEventListener("click", () => {
+      var days = document.querySelector(".date").value;
+      // validator
+      if (days != "") {
+        Math.floor(days);
+        hide(".main-content");
+        show(".sub-content");
+        console.log("days = " + days);
+        amountCalc(1, days);
+        reset();
       }
-      else {
-        final(curAvg, avgMinBal);
+    });
+  }
+
+  // Looping Function
+  function amountCalc(i, days) {
+    document.querySelector(".submit-btn").addEventListener("click", () => {
+      document.querySelector(".text-inner").textContent = i + 1;
+      // read the amount
+      amount = document.querySelector(".amount").value;
+
+      if (amount == "") {
+        // same amount as previous day
+        sum += prev;
+        addItem(i, prev);
+      } else {
+        addItem(i, amount);
+        sum += Math.floor(Math.round(amount));
+        resetInput();
+        prev = Math.floor(Math.round(amount));
       }
-    }
 
-    // Display Average
-    function final(curAvg, avgMinBal) {
-      show("#final-content-holder");
-      document.querySelector(".avgCurrent").innerHTML =
-        "<strong>" + curAvg + "</strong>";
-      document.querySelector(".finalCalc").innerHTML =
-        "<strong>" + avgMinBal + "</strong>";
-    }
+      // console.log(sum);
+      ++i;
+      if (i > days) {
+        hide(".sub-content");
+        calcAvg(sum, days);
+      }
+    });
+  }
 
-    document.querySelector(".resetDays").addEventListener("click", reset);
-    document.querySelector(".reset").addEventListener("click", resetInput);
+  // Display List
+  function addItem(day, rupee) {
+    // show(".summary");
+    var ul = document.getElementById("dynamic-list");
+    var li = document.createElement("li");
+    li.setAttribute("id", day);
+    li.appendChild(
+      document.createTextNode("Day " + day + " | " + "Rupee(s) " + rupee)
+    );
+    ul.appendChild(li);
+    show("#acc-summary");
+  }
 
-    function resetInput() {
-      document.querySelector(".amount").value = "";
+  // Average Calculator
+  function calcAvg(sum, days) {
+    var remDays = monthDays - days;
+    var curAvg = Math.round(sum / days);
+    // 1000 is the minimum needed amount
+    var avgMinBal = Math.round((monthDays * 1000 - sum) / remDays);
+
+    if (avgMinBal <= -1) {
+      final(curAvg, 0);
+    } else {
+      final(curAvg, avgMinBal);
     }
-    function reset() {
-      amount = 0;
-      document.querySelector(".date").value = "";
-    }
-    function hide(element) {
-      document.querySelector(element).style.display = "none";
-    }
-    function show(element) {
-      document.querySelector(element).style.display = "block";
-    }
+  }
+
+  // Display Average
+  function final(curAvg, avgMinBal) {
+    show("#final-content-holder");
+    document.querySelector(".avgCurrent").innerHTML =
+      "<strong>" + curAvg + "</strong>";
+    document.querySelector(".finalCalc").innerHTML =
+      "<strong>" + avgMinBal + "</strong>";
+  }
+
+  document.querySelector(".resetDays").addEventListener("click", reset);
+  document.querySelector(".reset").addEventListener("click", resetInput);
+
+  function resetInput() {
+    document.querySelector(".amount").value = "";
+  }
+  function reset() {
+    amount = 0;
+    document.querySelector(".date").value = "";
+  }
+  function hide(element) {
+    document.querySelector(element).style.display = "none";
+  }
+  function show(element) {
+    document.querySelector(element).style.display = "block";
+  }
 }
 
+/* ================================================================= */
 
 // CALENDER
 
-// $(function() {
-//   function c() {
-//     p();
-//     var e = h();
-//     var r = 0;
-//     var u = false;
-//     l.empty();
-//     while (!u) {
-//       if (s[r] == e[0].weekday) {
-//         u = true;
-//       } else {
-//         l.append('<div class="blank"></div>');
-//         r++;
-//       }
-//     }
-//     for (var c = 0; c < 42 - r; c++) {
-//       if (c >= e.length) {
-//         l.append('<div class="blank"></div>');
-//       } else {
-//         var v = e[c].day;
-//         var m = g(new Date(t, n - 1, v)) ? '<div class="today">' : "<div>";
-//         l.append(m + "" + v + "</div>");
-//       }
-//     }
-//     var y = o[n - 1];
-//     a.css("background-color", y)
-//       .find("h1")
-//       .text(i[n - 1] + " " + t);
-//     f.find("div").css("color", y);
-//     l.find(".today").css("background-color", y);
-//     d();
-//   }
-//   function h() {
-//     var e = [];
-//     for (var r = 1; r < v(t, n) + 1; r++) {
-//       e.push({ day: r, weekday: s[m(t, n, r)] });
-//     }
-//     return e;
-//   }
-//   function p() {
-//     f.empty();
-//     for (var e = 0; e < 7; e++) {
-//       f.append("<div>" + s[e].substring(0, 3) + "</div>");
-//     }
-//   }
-//   function d() {
-//     var t;
-//     var n = $("#calendar").css("width", e + "px");
-//     n.find((t = "#calendar_weekdays, #calendar_content"))
-//       .css("width", e + "px")
-//       .find("div")
-//       .css({
-//         width: e / 7 + "px",
-//         height: e / 7 + "px",
-//         "line-height": e / 7 + "px"
-//       });
-//     n.find("#calendar_header")
-//       .css({ height: e * (1 / 7) + "px" })
-//       .find('i[class^="icon-chevron"]')
-//       .css("line-height", e * (1 / 12) + "px");
-//   }
-//   function v(e, t) {
-//     return new Date(e, t, 0).getDate();
-//   }
-//   function m(e, t, n) {
-//     return new Date(e, t - 1, n).getDay();
-//   }
-//   function g(e) {
-//     return y(new Date()) == y(e);
-//   }
-//   function y(e) {
-//     return e.getFullYear() + "/" + (e.getMonth() + 1) + "/" + e.getDate();
-//   }
-//   function b() {
-//     var e = new Date();
-//     t = e.getFullYear();
-//     n = e.getMonth() + 1;
-//   }
-//   var e = 480;
-//   var t = 2013;
-//   var n = 9;
-//   var r = [];
-//   var i = [
-//     "JANUARY",
-//     "FEBRUARY",
-//     "MARCH",
-//     "APRIL",
-//     "MAY",
-//     "JUNE",
-//     "JULY",
-//     "AUGUST",
-//     "SEPTEMBER",
-//     "OCTOBER",
-//     "NOVEMBER",
-//     "DECEMBER"
-//   ];
-//   var s = [
-//     "Sunday",
-//     "Monday",
-//     "Tuesday",
-//     "Wednesday",
-//     "Thursday",
-//     "Friday",
-//     "Saturday"
-//   ];
-//   var o = [
-//     "#16a085",
-//     "#1abc9c",
-//     "#c0392b",
-//     "#27ae60",
-//     "#FF6860",
-//     "#f39c12",
-//     "#f1c40f",
-//     "#e67e22",
-//     "#2ecc71",
-//     "#e74c3c",
-//     "#d35400",
-//     "#2c3e50"
-//   ];
-//   var u = $("#calendar");
-//   var a = u.find("#calendar_header");
-//   var f = u.find("#calendar_weekdays");
-//   var l = u.find("#calendar_content");
-//   b();
-//   c();
-//   a.find('i[class^="icon-chevron"]').on("click", function() {
-//     var e = $(this);
-//     var r = function(e) {
-//       n = e == "next" ? n + 1 : n - 1;
-//       if (n < 1) {
-//         n = 12;
-//         t--;
-//       } else if (n > 12) {
-//         n = 1;
-//         t++;
-//       }
-//       c();
-//     };
-//     if (e.attr("class").indexOf("left") != -1) {
-//       r("previous");
-//     } else {
-//       r("next");
-//     }
-//   });
-// });
+class Calendar {
+  constructor(id) {
+    this.displayed_date = new Date(); //date wich calendar displays now
+    this.current_day = this.displayed_date.getDate(); //current world time
+    this.selected_date = this.displayed_date; //date that user's selected
+
+    this.drawToDom(this.displayed_date, id);
+
+    this.body_node = document.getElementById("calendar-body");
+    this.year_node = document.getElementById("calendar-year");
+    this.month_node = document.getElementById("calendar-month");
+
+    this.moveLeft = this.moveLeft.bind(this);
+    this.moveRight = this.moveRight.bind(this);
+    this.selectHandler = this.selectHandler.bind(this);
+    this.setDateTo = this.setDateTo.bind(this);
+
+    this.body_node.addEventListener("click", this.selectHandler);
+
+    document
+      .getElementById("calendar-left-btn") //adds listeners for buttons
+      .addEventListener("click", this.moveLeft);
+    document
+      .getElementById("calendar-right-btn")
+      .addEventListener("click", this.moveRight);
+  }
+
+  //draws the calendar when the document is loaded
+  drawToDom(date, id) {
+    let year = date.getFullYear();
+    let month = this.getMonthName(date);
+
+    document.getElementById(id).innerHTML = `
+			<div id='calendar'>
+				<header class="calendar__head">
+          <div class="calendar__nav">
+          
+						<div id='calendar-left-btn' class="calendar__arrow">
+              <i class="fas fa-chevron-left"></i>
+						</div>
+
+						<div class="calendar__head-text">
+							<span id='calendar-month' class="calender-header-text-month">${month}</span>
+							<span id='calendar-year' class="calender-header-text-year">${year}</span>
+						</div>
+
+						<div id='calendar-right-btn' class="calendar__arrow">
+              <i class="fas fa-chevron-right"></i>
+						</div>
+					</div>
+
+					<table class="calendar__head-days">
+            <td class='calendar__head-days-item'>S</td>
+						<td class='calendar__head-days-item'>M</td>
+						<td class='calendar__head-days-item'>T</td>
+						<td class='calendar__head-days-item'>W</td>
+						<td class='calendar__head-days-item'>T</td>
+						<td class='calendar__head-days-item'>F</td>
+						<td class='calendar__head-days-item'>S</td>
+					</table>
+				</header>
+				<table id="calendar-body" class='calendar__body'></table>
+			</div>`;
+
+    let body = this.createCalendarBody(this.displayed_date, true);
+
+    document.getElementById("calendar-body").appendChild(body);
+  }
+
+  createDaysArray(date) {
+    let prev_month_last_day = new Date( //number of the last day of the previous month
+      date.getFullYear(),
+      date.getMonth(),
+      0
+    ).getDate();
+    let first_week_day = new Date( //number of the first day of the current month f.e. monday->1, wednesday->3
+      date.getFullYear(),
+      date.getMonth(), 2
+    ).getDay();
+    let current_month_last_day = new Date(
+      date.getFullYear(),
+      date.getMonth() + 1, 0
+    ).getDate();
+
+    let days_array = new Array(42);
+    let i = 0; // iterator for all three parts of array
+
+    if (first_week_day == 0) first_week_day = 7; //if it was sunday
+
+    let first_array_element = prev_month_last_day - first_week_day + 2;
+
+    //adds last days of previous month
+    for (i = 0; i < first_week_day - 1; ++i) {
+      days_array[i] = {
+        number: first_array_element + i,
+        from: "prev month"
+      };
+    }
+
+    //adds days of current month
+    for (let k = 1; k <= current_month_last_day; ++k) {
+      days_array[i] = {
+        number: k,
+        from: "current month",
+        weekend: i % 7 > 4
+      };
+      i++;
+    }
+
+    //adds days of next month
+    for (let k = 0; i < days_array.length; ++k) {
+      days_array[i] = {
+        number: k + 1,
+        from: "next month"
+      };
+      i++;
+    }
+
+    return days_array;
+  }
+
+  //returns a  fulfilled and styled table DOM element
+  createCalendarBody(date, current_month = false) {
+    let days_array = this.createDaysArray(date);
+    let table = document.createDocumentFragment();
+
+    let i = 0;
+
+    for (let j = 0; j < 6; ++j) {
+      let tr = document.createElement("tr");
+
+      for (let k = 0; k < 7; ++k) {
+        let td = document.createElement("td");
+        td.innerHTML = days_array[i].number;
+        tr.appendChild(td);
+
+        //add the styles that depend on what month the day belongs to
+        td.classList.add("calendar-cell");
+        
+        if (days_array[i].from !== "current month") {
+          td.classList.add("calendar-cell-gray");
+        } 
+        // else {
+        //   // adds style to current day
+        //   if (current_month && this.selected_date.getDate() == days_array[i].number) {
+        //     td.classList.add("calendar-cell-selected");
+        //     td.id = "selected_date";
+        //   }
+
+        //   // adds style to the current day
+        //   // if (current_month && this.current_day == days_array[i].number) {
+        //   //   td.classList.add("calendar-cell-today");
+        //   // }
+        // }
+        ++i;
+      }
+      tr.classList.add("calendar-body-row");
+      table.appendChild(tr);
+    }
+
+    return table;
+  }
+
+  //returns month name from date
+  getMonthName(date) {
+    const month_names = [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December"
+    ];
+
+    return month_names[date.getMonth()];
+  }
+
+  //if the received date corresponds to the current month and year returns true
+  isThisMonthCurrent(date) {
+    let current = new Date();
+    if (
+      current.getFullYear() == date.getFullYear() &&
+      current.getMonth() == date.getMonth()
+    )
+      return true;
+    else return false;
+  }
+
+  //redraws the body according to the received date
+  setDateTo(date) {
+    let current_month = this.isThisMonthCurrent(date); //if it is current month, current day will ba highlighted
+    let new_body = this.createCalendarBody(date, current_month);
+    this.year_node.innerHTML = date.getFullYear();
+    this.month_node.innerHTML = this.getMonthName(date);
+    this.body_node.innerHTML = "";
+    this.body_node.appendChild(new_body);
+  }
+
+  //redraws the calendar a month in backward
+  moveLeft() {
+    this.displayed_date = new Date( //set the day to prev month
+      this.displayed_date.getFullYear(),
+      this.displayed_date.getMonth() - 1,
+      1
+    );
+
+    this.setDateTo(this.displayed_date);
+  }
+
+  //redraws the calendar a month in forward
+  moveRight() {
+    this.displayed_date = new Date( //set the day to next month
+      this.displayed_date.getFullYear(),
+      this.displayed_date.getMonth() + 1,
+      1
+    );
+
+    this.setDateTo(this.displayed_date);
+  }
+
+  //handles user clicks on cells
+  selectHandler(e) {
+    if (e.target.classList.contains("calendar-cell-gray")) return; //only days of current month can be selected
+    if (!e.target.classList.contains("calendar-cell")) return; //if it wawn't a click on a cell
+
+    let prev_selected = document.getElementById("selected_date");
+    if (prev_selected) {
+      prev_selected.classList.remove("calendar-cell-selected");
+      prev_selected.id = "";
+    }
+
+    this.selected_date = new Date(
+      this.displayed_date.getFullYear(),
+      this.displayed_date.getMonth(),
+      e.target.innerHTML
+    );
+
+    e.target.id = "selected_date";
+    e.target.classList.add("calendar-cell-selected");
+  }
+}
+
+const calendar = new Calendar("calendar-wrap");

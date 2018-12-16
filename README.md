@@ -20,7 +20,7 @@ https://abhijithvijayan.github.io/AMB-Calculator/
 ## TODO list
 
 - [ ] Make the Graphical User Interfaces look better
-- [ ] Calendar Implementation (Now it's 31 days)
+- [ ] [Calendar](https://github.com/RomanLevak/pure-javascript-calendar-component) Implementation 
 - [ ] Min Balance User Input 
 
 This code was put together in about 4 hours, so it's not necessarily complete and the prettiest! 
@@ -28,8 +28,9 @@ This code was put together in about 4 hours, so it's not necessarily complete an
 ## Licence
 Code released under the [MIT License](LICENSE.md).
 
-## Reference
+## References and Assets
 
 https://www.federalbank.co.in/amb-calculator
+https://github.com/RomanLevak/pure-javascript-calendar-component
 
 ![1](src/assets/1.png)

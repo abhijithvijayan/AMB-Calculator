@@ -1,0 +1,96 @@
+#calendar-wrap {
+  display: grid;
+  justify-content: center;
+  align-content: center;
+  // calendar
+  #calendar {
+    padding: 1em 0.5em;
+    height: 100%;
+    width: 100%;
+    background-color: $color-black;
+    color: $color-light-blue;
+    border: 3px solid $color-light-pink;
+    border-radius: 23px;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    .calendar__head {
+      min-width: 100%;
+      text-align: center;
+      .calendar__nav {
+        display: flex;
+        justify-content: space-between;
+        -ms-align-items: center;
+        align-items: center;
+        padding: 0% 2% 4% 2%;
+        .calendar__head-text {
+          font-size: 22px;
+        }
+        .calendar__arrow {
+          padding: 0 1em;
+          cursor: pointer;
+        }
+      }
+      .calendar__head-days {
+        width: 100%;
+        text-decoration: none;
+        margin-bottom: 4%;
+        .calendar__head-days-item {
+          position: relative;
+          padding: 0 1em;
+          &:after {
+            content: "";
+            display: block;
+            position: absolute;
+            left: 100%;
+            top: 50%;
+            margin-top: -10px;
+            width: 2px;
+            height: 20px;
+            background-color: $color-lighter-blue;
+          }
+          &:last-child:after {
+            display: none;
+          }
+        }
+      }
+    }
+    .calendar__body {
+      width: 100%;
+      margin-bottom: 3%;
+      border-spacing: 4px 3px;
+      padding: 3px 0;
+      text-align: center;
+      .calendar-body-row {
+        // margin-top: 3% !important; 
+        .calendar-cell {
+          color: #2be6d6;
+          margin-left: 10px;
+          border-radius: 20%;
+          cursor: pointer;
+          transition: box-shadow 0.22s ease-in;
+          &:hover {
+            box-shadow: 0 4px 0 $color-dark, 0 -4px 0 $color-dark, 3px 0 0 $color-dark,
+              -3px 0 0 $color-dark;
+          }
+        }
+        .calendar-cell-gray {
+          color: $color-grey;
+          cursor: default;
+          &:hover {
+            box-shadow: none;
+          }
+        }
+        .calendar-cell-selected {
+          border-radius: 9px;
+          background: $color-lighter-blue;
+          box-shadow: 0 7px 13px -1px $color-dark;
+        }
+        .calendar-cell-today {
+          background-color: $color-grey;
+        }
+      }
+    }
+  }
+}
