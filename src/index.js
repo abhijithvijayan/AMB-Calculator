@@ -1,121 +1,130 @@
 import "bootstrap";
 import "./sass/main.scss";
 
-// Let month = decemenber -> 31 days
-
-start();
-
-function start() {
-  // declarations
-  var sum = 0,
-    amount,
-    prev = 0;
-  var monthDays = 31;
+var sum = 0,
+  amount,
+  prev = 0,
+  current_selected_date,
+  total_days,
+  counter = 0,
+  varCounter = 0,
+  finalSum;
 
   init();
+// Initializing
+function init() {
+  // hide all
 
-  // Initializing
-  function init() {
-    // hide all
-    hide(".sub-content");
-    hide("#final-content-holder");
-    hide("#acc-summary");
+  // hide(".sub-content");
+  hide("#final-content-holder");
+  hide("#acc-summary");
+  hide(".main-content");
 
-    resetInput();
-    // Read days function
-    document.querySelector(".submitDays").addEventListener("click", () => {
-      var days = document.querySelector(".date").value;
-      // validator
-      if (days != "") {
-        Math.floor(days);
-        hide(".main-content");
-        show(".sub-content");
-        console.log("days = " + days);
-        amountCalc(1, days);
-        reset();
-      }
-    });
-  }
+  resetInput();
+  // Read days function
+  // document.querySelector(".submitDays").addEventListener("click", () => {
+  //   var days = document.querySelector(".date").value;
+  //   // validator
+  //   if (days != "") {
+  //     Math.floor(days);
+  //     hide(".main-content");
+  //     show(".sub-content");
+  //     console.log("days = " + days);
+  //     amountCalc(1, days);
+  //     reset();
+  //   }
+  // });
 
-  // Looping Function
-  function amountCalc(i, days) {
-    document.querySelector(".submit-btn").addEventListener("click", () => {
-      document.querySelector(".text-inner").textContent = i + 1;
-      // read the amount
-      amount = document.querySelector(".amount").value;
+  // amountCalc(1, 3);
 
-      if (amount == "") {
-        // same amount as previous day
-        sum += prev;
-        addItem(i, prev);
-      } else {
-        addItem(i, amount);
-        sum += Math.floor(Math.round(amount));
-        resetInput();
-        prev = Math.floor(Math.round(amount));
-      }
+}
 
-      // console.log(sum);
-      ++i;
-      if (i > days) {
-        hide(".sub-content");
-        calcAvg(sum, days);
-      }
-    });
-  }
+document.getElementById("calculate").addEventListener('click', () => {
+  calcAvg(sum, varCounter, total_days);
+});
 
-  // Display List
-  function addItem(day, rupee) {
-    // show(".summary");
-    var ul = document.getElementById("dynamic-list");
-    var li = document.createElement("li");
-    li.setAttribute("id", day);
-    li.appendChild(
-      document.createTextNode("Day " + day + " | " + "Rupee(s) " + rupee)
-    );
-    ul.appendChild(li);
-    show("#acc-summary");
-  }
-
-  // Average Calculator
-  function calcAvg(sum, days) {
-    var remDays = monthDays - days;
-    var curAvg = Math.round(sum / days);
-    // 1000 is the minimum needed amount
-    var avgMinBal = Math.round((monthDays * 1000 - sum) / remDays);
-
-    if (avgMinBal <= -1) {
-      final(curAvg, 0);
+// Looping Function
+function calculation(i) {
+  // if(varCounter == -1) {
+  //   varCounter = 0;
+  //   document.querySelector(".submit-btn").addEventListener('click', () => {});
+  //   return;
+  // }
+// function amountCalc(i, days) {
+  function doCalculation() {
+    amount = document.querySelector(".amount").value;
+    console.log(amount);
+    if (amount == "") {
+      // same amount as previous day
+      sum += prev;
+      addItem(i, prev);
     } else {
-      final(curAvg, avgMinBal);
+      addItem(i, amount);
+      sum += Math.floor(Math.round(amount));
+      resetInput();
+      prev = Math.floor(Math.round(amount));
     }
+    removeSelectProperty();
+    document.querySelector(".submit-btn").removeEventListener('click', doCalculation);
+  
   }
+  document.querySelector(".submit-btn").addEventListener('click', doCalculation);
 
-  // Display Average
-  function final(curAvg, avgMinBal) {
-    show("#final-content-holder");
-    document.querySelector(".avgCurrent").innerHTML =
-      "<strong>" + curAvg + "</strong>";
-    document.querySelector(".finalCalc").innerHTML =
-      "<strong>" + avgMinBal + "</strong>";
-  }
+}
 
-  document.querySelector(".resetDays").addEventListener("click", reset);
-  document.querySelector(".reset").addEventListener("click", resetInput);
+// Display List
+function addItem(day, rupee) {
+  // show(".summary");
+  var ul = document.getElementById("dynamic-list");
+  var li = document.createElement("li");
+  li.setAttribute("id", day);
+  li.appendChild(
+    document.createTextNode("Day " + day + " | " + "Rupee(s) " + rupee)
+  );
+  ul.appendChild(li);
+  show("#acc-summary");
+}
 
-  function resetInput() {
-    document.querySelector(".amount").value = "";
+// Average Calculator
+function calcAvg(sum, days, total_days) {
+  var remDays = total_days - days;
+  console.log(total_days);
+  var curAvg = Math.round(sum / days);
+  // 1000 is the minimum needed amount
+  var avgMinBal = Math.round((total_days * 1000 - sum) / remDays);
+
+  if (avgMinBal <= -1) {
+    final(curAvg, 0);
+  } else {
+    final(curAvg, avgMinBal);
   }
-  function reset() {
-    amount = 0;
-    document.querySelector(".date").value = "";
-  }
-  function hide(element) {
-    document.querySelector(element).style.display = "none";
-  }
-  function show(element) {
-    document.querySelector(element).style.display = "block";
-  }
+}
+
+// Display Average
+function final(curAvg, avgMinBal) {
+  show("#final-content-holder");
+  document.querySelector(".avgCurrent").innerHTML =
+    "<strong>" + curAvg + "</strong>";
+  document.querySelector(".finalCalc").innerHTML =
+    "<strong>" + avgMinBal + "</strong>";
+}
+
+// document.querySelector(".resetDays").addEventListener("click", reset);
+document.querySelector(".reset").addEventListener("click", resetInput);
+
+function resetInput() {
+  document.querySelector(".amount").value = "";
+  // removeSelection();
+}
+function reset() {
+  amount = 0;
+  document.querySelector(".date").value = "";
+}
+function hide(element) {
+  document.querySelector(element).style.display = "none";
+}
+function show(element) {
+  document.querySelector(element).style.display = "block";
 }
 
 /* ================================================================= */
@@ -240,6 +249,9 @@ class Calendar {
       i++;
     }
 
+    // STARTS INITIALIZING
+    total_days = current_month_last_day;
+
     return days_array;
   }
 
@@ -351,23 +363,55 @@ class Calendar {
   //handles user clicks on cells
   selectHandler(e) {
     if (e.target.classList.contains("calendar-cell-gray")) return; //only days of current month can be selected
-    if (!e.target.classList.contains("calendar-cell")) return; //if it wawn't a click on a cell
-
-    let prev_selected = document.getElementById("selected_date");
-    if (prev_selected) {
-      prev_selected.classList.remove("calendar-cell-selected");
-      prev_selected.id = "";
+    if (!e.target.classList.contains("calendar-cell")) return; //if it wasn't a click on a cell
+    if (e.target.classList.contains("noMoreSelection")) return; // can't be selected anymore
+    if (e.target.classList.contains("calendar-cell-selected")) {
+      e.target.id = "delete";
+       removeSelection();
+       return;
     }
-
+    // {
+    //   removeSelectProperty();
+    //   console.log("happy");
+    // }
+    
     this.selected_date = new Date(
       this.displayed_date.getFullYear(),
       this.displayed_date.getMonth(),
       e.target.innerHTML
     );
+    
+    // date
+    current_selected_date = this.selected_date.getDate();
+    console.log(current_selected_date);
+    
+    // calculate amount
+    calculation(current_selected_date);
 
     e.target.id = "selected_date";
     e.target.classList.add("calendar-cell-selected");
+
+    varCounter++;
   }
 }
+
+
+var removeSelectProperty = () => {
+  let prev_selected = document.getElementById("selected_date");
+  if (prev_selected) {
+    prev_selected.classList.remove("calendar-cell-selected");
+    prev_selected.id = "";
+    prev_selected.classList.add("noMoreSelection");
+  }
+}
+
+var removeSelection = () => {
+  let prev_selected = document.getElementById("delete");
+  prev_selected.classList.remove("calendar-cell-selected");
+  prev_selected.id = "";
+  varCounter--;
+  console.log(finalSum);
+}
+
 
 const calendar = new Calendar("calendar-wrap");
