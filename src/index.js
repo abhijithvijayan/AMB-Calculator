@@ -23,19 +23,6 @@ function initialize() {
   resetInput();
 }
 
-// calculate button
-document.getElementById("calculate").addEventListener("click", () => {
-  calcAvg(sum, varCounter, total_days);
-  if (sum == 0) {
-    alert("Please enter Amount");
-  } else {
-    hide("#calendar-wrap");
-    hide("#calculate");
-    hide(".form-row");
-    hide(".header-text");
-  }
-});
-
 // main function
 function calculation(i) {
   function doCalculation() {
@@ -105,6 +92,19 @@ document.querySelector(".submit-btn").addEventListener("click", () => {
     if (amount < 0) {
       alert("Please enter Amount");
     }
+  }
+});
+
+// calculate button
+document.getElementById("calculate").addEventListener("click", () => {
+  calcAvg(sum, varCounter, total_days);
+  if (sum == 0) {
+    alert("Please enter Amount");
+  } else {
+    hide("#calendar-wrap");
+    hide("#calculate");
+    hide(".form-row");
+    hide(".header-text");
   }
 });
 
