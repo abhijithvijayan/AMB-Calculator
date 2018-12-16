@@ -4,22 +4,22 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>AMB - Calculator</title>
-  <link href="css/main.570e54fa863623398b17.css" rel="stylesheet"></head>
+  <link href="css/main.487e4b7276d661ea2630.css" rel="stylesheet"></head>
   <body>
-    
+
     <section id="home">
       <div class="container">
         <div class="row">
-          <div class="col-md-12 text-center">
-              <h2>Average Monthly Balance-Calculator</h2>
-          </div>
+            <div class="col-md-12 text-center">
+                <h2>Average Monthly Balance-Calculator</h2>
+            </div>
         </div>
         <form>
           <div class="form-row p-5">
             <div class="col-md-4 main-content mx-auto">
               <!-- input -->
               <label for="date">Enter number of days passed : </label>
-              <input type="text" class="form-control date mb-3" id="date" maxlength="2" autocomplete="off" required>
+              <input type="text" class="form-control date mb-3" id="date" maxlength="2" autocomplete="off">
               <!-- buttons -->
               <button class="btn btn-primary submitDays" id="submit-btn" type="submit">SUBMIT</button>
               <button class="btn btn-danger resetDays" id="submit-btn" type="button">RESET</button>
@@ -27,14 +27,23 @@
             <div class="col-md-5 sub-content mx-auto">
                 <!-- input -->
                 <label for="amount">Enter the Closing Balance of the day : <span class="text-inner">1</span></label>
-                <input type="text" class="form-control amount mb-3" id="amount" placeholder="" value="" autocomplete="off" maxlength="8">
+                <input type="text" class="form-control amount mb-3" id="amount" placeholder="" value="" autocomplete="off" maxlength="8" required>
                 <!-- buttons -->
                 <button class="btn btn-primary submit-btn" id="submit-btn" type="submit">SUBMIT</button>
-                <button class="btn btn-danger reset" id="submit-btn" type="button">RESET</button>
+                <button class="btn btn-danger reset" id="" type="button">RESET</button>
                 <button class="btn btn-light new" value="Refresh Page" onClick="window.location.reload()">NEW</button>
             </div>
           </div>
         </form>
+
+        <div id="calendar-wrap"></div>
+
+        <div class="row">
+            <div class="col-md-12 text-center my-5">
+                <button class="btn btn-danger calculate" id="calculate" type="button">CALCULATE</button>
+            </div>
+        </div>
+
         <div class="row text-center" id="acc-summary">
             <div class="col-md-5 mx-auto">
               <h2 class="summary">Account Summary</h2>
