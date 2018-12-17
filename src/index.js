@@ -151,6 +151,16 @@ var reset = () => {
 // reset button
 document.querySelector(".reset").addEventListener("click", reset);
 
+// readmore button
+document.getElementById('readmore').addEventListener('click', () => {
+  show("#overlay");
+});
+
+//overlay button
+document.getElementById('overlay').addEventListener('click', () => {
+  hide("#overlay");
+});
+
 // hide elements
 var hide = (element) => {
   document.querySelector(element).style.display = "none";
