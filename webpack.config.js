@@ -10,6 +10,9 @@ const globSync = require("glob").sync;
 
 module.exports = (env, options) => ({
   entry: ["./src/index.js"],
+  node: {
+    fs: 'empty'
+  },
   devServer: {
     port: 3000,
     contentBase: "./dist"
