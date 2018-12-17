@@ -30,7 +30,7 @@ var deleteElement = (val) => {
       // console.log("Deleted:" + Ar[i] + "at:" + varCounter);
       Ar[i] = Ar[varCounter - 1];
       Ar.pop();
-      // console.log(Ar);
+      console.log(Ar);
       --varCounter;
     }
   }
@@ -58,6 +58,7 @@ var addItem = (day, rupee) => {
   var ul = document.getElementById("dynamic-list");
   var li = document.createElement("li");
   li.setAttribute("id", day);
+  li.setAttribute("class", "deleteNode");
   li.appendChild(
     document.createTextNode("Day " + day + " | " + "Rupee(s) " + rupee)
   );
@@ -127,9 +128,6 @@ document.getElementById("calculate").addEventListener("click", () => {
   }
 });
 
-// reset button
-document.querySelector(".reset").addEventListener("click", resetInput);
-
 // reset input function
 var resetInput = () => {
   document.querySelector(".amount").value = "";
@@ -137,9 +135,19 @@ var resetInput = () => {
 
 // reset function
 var reset = () => {
+  sum = 0;
   amount = 0;
-  document.querySelector(".date").value = "";
+  passCount = 0;
+  resetInput();
+  initialize();
+  // deleting all nodes using jquery
+  $('.deleteNode').remove();
+  // making clickable
+  $("td").removeClass("noMoreSelection");
 }
+
+// reset button
+document.querySelector(".reset").addEventListener("click", reset);
 
 // hide elements
 var hide = (element) => {
@@ -174,12 +182,8 @@ class Calendar {
 
     this.body_node.addEventListener("click", this.selectHandler);
 
-    document
-      .getElementById("calendar-left-btn") //adds listeners for buttons
-      .addEventListener("click", this.moveLeft);
-    document
-      .getElementById("calendar-right-btn")
-      .addEventListener("click", this.moveRight);
+    document.getElementById("calendar-left-btn").addEventListener("click", this.moveLeft);
+    document.getElementById("calendar-right-btn").addEventListener("click", this.moveRight);
   }
 
   //draws the calendar when the document is loaded
@@ -373,6 +377,9 @@ class Calendar {
     );
 
     this.setDateTo(this.displayed_date);
+
+    // reset everything
+    reset();
   }
 
   //redraws the calendar a month in forward
@@ -384,6 +391,9 @@ class Calendar {
     );
 
     this.setDateTo(this.displayed_date);
+
+    // reset everything
+    reset();
   }
 
   // integrated functions
