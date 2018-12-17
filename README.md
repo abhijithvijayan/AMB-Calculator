@@ -21,7 +21,7 @@ https://abhijithvijayan.github.io/AMB-Calculator/
 ## TODO list
 
 - [ ] Make the Graphical User Interfaces look better
-- [ ] Calendar Implementation 
+- [x] Calendar Implementation 
 - [ ] Min Balance User Input 
 
 ## Licence

@@ -2,14 +2,13 @@ import "bootstrap";
 import "./sass/main.scss";
 import { read } from "fs";
 
-
 /* ------------------------------ */
 
 // variables
 
 var Ar = [];
-var i;
-var sum = 0,
+var i,
+  sum = 0,
   amount,
   current_selected_date,
   total_days,
@@ -17,71 +16,45 @@ var sum = 0,
   passCount = 0;
 
 // Initializing
-initialize();
 
-function initialize() {
+var initialize = () => {
   hide("#final-content-holder");
   hide("#acc-summary");
   resetInput();
-}
+};
 
-function deleteElement(val) {
-  for(i = 0; i < Ar.length; ++i) {
-    if(val == Ar[i]) {
-      console.log("Deleted:" + Ar[i] + "at:"+ varCounter);
-      Ar[i] = Ar[varCounter-1];
+// popping from array
+var deleteElement = (val) => {
+  for (i = 0; i < Ar.length; ++i) {
+    if (val == Ar[i]) {
+      // console.log("Deleted:" + Ar[i] + "at:" + varCounter);
+      Ar[i] = Ar[varCounter - 1];
       Ar.pop();
-      // delete Ar[i];
-      console.log( Ar );
+      // console.log(Ar);
       --varCounter;
     }
   }
-}
+};
 
-document.querySelector(".submit-btn").addEventListener("click", () => {
-  // console.log("elements = " + varCounter);
-  // console.log( Ar );
-  // console.log(amount);
+// main function
+var calculation = date => {
   amount = document.querySelector(".amount").value;
-  if (Ar.length == 0) {
-    alert("Please Select Date");
+  // pass count for no of days selected
+  passCount++;
+  if (amount < 0) {
+    alert("Please enter Amount");
+    return;
   } 
-  else if (amount == ""){
-    alert("Please Enter Amount");
-  }
   else {
-    for(i = 0; i < varCounter; ++i) {
-      calculation(Ar[i]);
-    }
-  // deleting array
-  Ar.length = 0;
-  varCounter = 0;
-  resetInput();
+    addItem(date, amount);
+    sum += Math.floor(Math.round(amount));
+    removeSelectProperty();
   }
-});
-
-// main function  
-function calculation(date) {
-    amount = document.querySelector(".amount").value;
-    passCount++;
-    // console.log("passing" + amount);
-    if (amount < 0) {
-      alert("Please enter Amount");
-      return;
-    }
-    else {
-        // console.log(amount);
-        addItem(date, amount);
-        sum += Math.floor(Math.round(amount));
-        // prev = Math.floor(Math.round(amount));
-        // console.log("sum=" + sum);
-        removeSelectProperty();
-    }
-    console.log("sum=" + sum);
-}
+  // console.log("sum=" + sum);
+};
 
 // creating table
-function addItem(day, rupee) {
+var addItem = (day, rupee) => {
   var ul = document.getElementById("dynamic-list");
   var li = document.createElement("li");
   li.setAttribute("id", day);
@@ -93,14 +66,15 @@ function addItem(day, rupee) {
 }
 
 // calculating function
-function calcAvg(sum, days, total_days) {
+var calcAvg = (sum, days, total_days) => {
   var remDays = total_days - days;
   var curAvg = Math.round(sum / days);
   // 1000 is the minimum needed amount
   var avgMinBal = Math.round((total_days * 1000 - sum) / remDays);
   if (avgMinBal <= -1) {
     final(curAvg, 0);
-  } else {
+  } 
+  else {
     final(curAvg, avgMinBal);
   }
 }
@@ -108,22 +82,42 @@ function calcAvg(sum, days, total_days) {
 // Display Average
 function final(curAvg, avgMinBal) {
   show("#final-content-holder");
-  document.querySelector(".avgCurrent").innerHTML =
-    "<strong>" + curAvg + "</strong>";
-  document.querySelector(".finalCalc").innerHTML =
-    "<strong>" + avgMinBal + "</strong>";
+  document.querySelector(".avgCurrent").innerHTML = "<strong>" + curAvg + "</strong>";
+  document.querySelector(".finalCalc").innerHTML = "<strong>" + avgMinBal + "</strong>";
 }
 
-// calculate button
+// submit button event listener
+document.querySelector(".submit-btn").addEventListener("click", () => {
+  amount = document.querySelector(".amount").value;
+  if (Ar.length == 0) {
+    alert("Please Select Date");
+  } 
+  else if (amount == "") {
+    alert("Please Enter Amount");
+  } 
+  else {
+    for (i = 0; i < varCounter; ++i) {
+      calculation(Ar[i]);
+    }
+    // deleting entire array
+    Ar.length = 0;
+    varCounter = 0;
+    resetInput();
+  }
+});
+
+// calculate button event listener
 document.getElementById("calculate").addEventListener("click", () => {
-  if(passCount == 0) {
+  if (passCount == 0) {
     alert("Select a Date");
-  } else {
+  } 
+  else {
     calcAvg(sum, passCount, total_days);
     varCounter = 0;
     if (sum == 0) {
       alert("Please enter Amount");
-    } else {
+    } 
+    else {
       hide("#calendar-wrap");
       hide("#calculate");
       hide(".form-row");
@@ -137,23 +131,23 @@ document.getElementById("calculate").addEventListener("click", () => {
 document.querySelector(".reset").addEventListener("click", resetInput);
 
 // reset input function
-function resetInput() {
+var resetInput = () => {
   document.querySelector(".amount").value = "";
 }
 
 // reset function
-function reset() {
+var reset = () => {
   amount = 0;
   document.querySelector(".date").value = "";
 }
 
 // hide elements
-function hide(element) {
+var hide = (element) => {
   document.querySelector(element).style.display = "none";
 }
 
 // show elements
-function show(element) {
+var show = (element) => {
   document.querySelector(element).style.display = "block";
 }
 
@@ -392,21 +386,18 @@ class Calendar {
     this.setDateTo(this.displayed_date);
   }
 
-// integrated functions
-/* ======================================================= */
+  // integrated functions
+  /* ======================================================= */
 
   //handles user clicks on cells
   selectHandler(e) {
     if (e.target.classList.contains("calendar-cell-gray")) return; //only days of current month can be selected
     if (!e.target.classList.contains("calendar-cell")) return; //if it wasn't a click on a cell
     if (e.target.classList.contains("noMoreSelection")) return; // can't be selected anymore
-    
+    // to be unclicked and deleted from array
     if (e.target.classList.contains("calendar-cell-selected")) {
-      
       e.target.id = "delete";
-
       removeSelection();
-
       deleteElement(e.target.innerHTML);
       return;
     }
@@ -417,13 +408,10 @@ class Calendar {
       e.target.innerHTML
     );
 
-    // date
+    // selected date
     current_selected_date = this.selected_date.getDate();
-    // console.log(current_selected_date);
 
-    // call calculation function
-
-    // calculation(current_selected_date);
+    // push to array
     readArray(current_selected_date);
 
     e.target.id = "selected_date";
@@ -431,16 +419,12 @@ class Calendar {
   }
 }
 
-
+// push to array fn
 var readArray = (value) => {
   Ar.push(value);
   ++varCounter;
-  console.log("Inserted:" + value + "at"+ varCounter );
-}
-
-
-
-
+  // console.log("Inserted:" + value + "at" + varCounter);
+};
 
 // remove the selected and make it non selectable
 var removeSelectProperty = () => {
@@ -457,10 +441,11 @@ var removeSelection = () => {
   let prev_selected = document.getElementById("delete");
   prev_selected.classList.remove("calendar-cell-selected");
   prev_selected.id = "";
-  // console.log(finalSum);
 };
 
-
-
 // =========================================== //
+
 const calendar = new Calendar("calendar-wrap");
+
+// initialize the app
+initialize();
