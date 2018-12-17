@@ -6,14 +6,15 @@ import { read } from "fs";
 /* ------------------------------ */
 
 // variables
+
+var Ar = [];
+var i;
 var sum = 0,
   amount,
-  prev = 0,
   current_selected_date,
   total_days,
-  counter = 0,
   varCounter = 0,
-  finalSum;
+  passCount = 0;
 
 // Initializing
 initialize();
@@ -24,49 +25,59 @@ function initialize() {
   resetInput();
 }
 
-function test(val) {
-  for(i = 0; i < varCounter; i++) {
+function deleteElement(val) {
+  for(i = 0; i < Ar.length; ++i) {
     if(val == Ar[i]) {
+      console.log("Deleted:" + Ar[i] + "at:"+ varCounter);
       Ar[i] = Ar[varCounter-1];
-      varCounter--;
+      Ar.pop();
+      // delete Ar[i];
+      console.log( Ar );
+      --varCounter;
     }
   }
 }
 
 document.querySelector(".submit-btn").addEventListener("click", () => {
-  var newFn = () => {
-    for(i = 0; i < varCounter; i++) {
+  // console.log("elements = " + varCounter);
+  // console.log( Ar );
+  // console.log(amount);
+  amount = document.querySelector(".amount").value;
+  if (Ar.length == 0) {
+    alert("Please Select Date");
+  } 
+  else if (amount == ""){
+    alert("Please Enter Amount");
+  }
+  else {
+    for(i = 0; i < varCounter; ++i) {
       calculation(Ar[i]);
     }
+  // deleting array
+  Ar.length = 0;
+  varCounter = 0;
+  resetInput();
   }
 });
 
-// main function
-function calculation(i) {
-  function doCalculation() {
+// main function  
+function calculation(date) {
+    amount = document.querySelector(".amount").value;
+    passCount++;
+    // console.log("passing" + amount);
     if (amount < 0) {
       alert("Please enter Amount");
       return;
     }
-    amount = document.querySelector(".amount").value;
-    console.log(amount);
-    if (amount == "") {
-      // same amount as previous day
-      sum += prev;
-      addItem(i, prev);
-    } 
     else {
-        addItem(i, amount);
+        // console.log(amount);
+        addItem(date, amount);
         sum += Math.floor(Math.round(amount));
-        resetInput();
-        prev = Math.floor(Math.round(amount));
+        // prev = Math.floor(Math.round(amount));
+        // console.log("sum=" + sum);
+        removeSelectProperty();
     }
-    removeSelectProperty();
-    // removing event listener multiple fires
-    // document.querySelector(".submit-btn").removeEventListener("click", doCalculation);
-  }
-  doCalculation();
-  // document.querySelector(".submit-btn").addEventListener("click", doCalculation);
+    console.log("sum=" + sum);
 }
 
 // creating table
@@ -103,27 +114,22 @@ function final(curAvg, avgMinBal) {
     "<strong>" + avgMinBal + "</strong>";
 }
 
-// submit button init
-document.querySelector(".submit-btn").addEventListener("click", () => {
-  if (varCounter == 0) {
-    alert("Please Select Date");
-  } else {
-    if (amount < 0) {
-      alert("Please enter Amount");
-    }
-  }
-});
-
 // calculate button
 document.getElementById("calculate").addEventListener("click", () => {
-  calcAvg(sum, varCounter, total_days);
-  if (sum == 0) {
-    alert("Please enter Amount");
+  if(passCount == 0) {
+    alert("Select a Date");
   } else {
-    hide("#calendar-wrap");
-    hide("#calculate");
-    hide(".form-row");
-    hide(".header-text");
+    calcAvg(sum, passCount, total_days);
+    varCounter = 0;
+    if (sum == 0) {
+      alert("Please enter Amount");
+    } else {
+      hide("#calendar-wrap");
+      hide("#calculate");
+      hide(".form-row");
+      hide(".header-text");
+      hide(".buttons-group");
+    }
   }
 });
 
@@ -394,10 +400,14 @@ class Calendar {
     if (e.target.classList.contains("calendar-cell-gray")) return; //only days of current month can be selected
     if (!e.target.classList.contains("calendar-cell")) return; //if it wasn't a click on a cell
     if (e.target.classList.contains("noMoreSelection")) return; // can't be selected anymore
+    
     if (e.target.classList.contains("calendar-cell-selected")) {
+      
       e.target.id = "delete";
+
       removeSelection();
-      test(this.selected_date.getDate());
+
+      deleteElement(e.target.innerHTML);
       return;
     }
 
@@ -409,24 +419,23 @@ class Calendar {
 
     // date
     current_selected_date = this.selected_date.getDate();
-    console.log(current_selected_date);
+    // console.log(current_selected_date);
 
     // call calculation function
 
     // calculation(current_selected_date);
-    readArray(current_selected_date, varCounter);
+    readArray(current_selected_date);
 
     e.target.id = "selected_date";
     e.target.classList.add("calendar-cell-selected");
-
-    ++varCounter;
   }
 }
 
-var Ar = [];
-var i;
-var readArray = (value, i) => {
-  Ar[i] = value;
+
+var readArray = (value) => {
+  Ar.push(value);
+  ++varCounter;
+  console.log("Inserted:" + value + "at"+ varCounter );
 }
 
 
@@ -448,8 +457,7 @@ var removeSelection = () => {
   let prev_selected = document.getElementById("delete");
   prev_selected.classList.remove("calendar-cell-selected");
   prev_selected.id = "";
-  varCounter--;
-  console.log(finalSum);
+  // console.log(finalSum);
 };
 
 
