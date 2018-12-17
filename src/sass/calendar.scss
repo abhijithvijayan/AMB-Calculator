@@ -84,7 +84,8 @@
         }
         .calendar-cell-selected {
           border-radius: 9px;
-          background: $color-lighter-blue;
+          background: $color-light;
+          color: $color-black;
           box-shadow: 0 7px 13px -1px $color-dark;
         }
         .noMoreSelection, .calendar-cell-today {

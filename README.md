@@ -20,9 +20,10 @@ https://abhijithvijayan.github.io/AMB-Calculator/
 
 ## TODO list
 
-- [ ] Make the Graphical User Interfaces look better
 - [x] Calendar Implementation 
-- [ ] Min Balance User Input 
+- [ ] GUI Improvements
+- [ ] Min Balance Scheme
+- [ ] Account Summary Table View
 
 ## Licence
 Code released under the [MIT License](LICENSE.md).
