@@ -20,6 +20,7 @@ var i,
 var initialize = () => {
   hide("#final-content-holder");
   hide("#acc-summary");
+  hide('.new');
   resetInput();
 };
 
@@ -124,6 +125,7 @@ document.getElementById("calculate").addEventListener("click", () => {
       hide(".form-row");
       hide(".header-text");
       hide(".buttons-group");
+      document.querySelector('.new').style.display = "";
     }
   }
 });
