@@ -1,3 +1,17 @@
 #home {
   padding-top: 8vh;
+  #final-content-holder {
+    .content-holder {
+      h2 {
+        font-weight: $font-weight-semibold;
+        padding-bottom: 0.4em;
+      }
+      table {
+        td {
+          border: 2px solid $color-light-pink;
+          padding: 1em;
+        }
+      }
+    }
+  } 
 }
