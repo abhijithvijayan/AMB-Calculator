@@ -55,14 +55,21 @@ var calculation = date => {
 
 // creating table
 var addItem = (day, rupee) => {
-  var ul = document.getElementById("dynamic-list");
-  var li = document.createElement("li");
-  li.setAttribute("id", day);
-  li.setAttribute("class", "deleteNode");
-  li.appendChild(
-    document.createTextNode("Day " + day + " | " + "Rupee(s) " + rupee)
-  );
-  ul.appendChild(li);
+  var table = document.getElementById("dynamic-list");
+  var tr = document.createElement("tr");      // create <tr>
+  var td1 = document.createElement("td");     // create 2 <td>
+  var td2 = document.createElement("td");
+  tr.setAttribute("id", day);
+  tr.setAttribute("class", "deleteNode");
+  td1.setAttribute("id", "leftNode");
+  td2.setAttribute("id", "rightNode");
+  // append contents of <td>
+  td1.appendChild(document.createTextNode("Day " + day));
+  td2.appendChild(document.createTextNode("Rupee(s) " + rupee ));
+  tr.appendChild(td1);
+  tr.appendChild(td2);
+  table.appendChild(tr);
+
   show("#acc-summary");
 };
 

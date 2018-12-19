@@ -71,8 +71,10 @@
           cursor: pointer;
           transition: box-shadow 0.22s ease-in;
           &:hover {
-            box-shadow: 0 4px 0 $color-dark, 0 -4px 0 $color-dark, 3px 0 0 $color-dark,
-              -3px 0 0 $color-dark;
+            // box-shadow: 0 4px 0 $color-dark, 0 -4px 0 $color-dark, 3px 0 0 $color-dark,
+            //   -3px 0 0 $color-dark;
+            background-color: $color-lighter-blue;
+            color: $color-white;
           }
         }
         .calendar-cell-gray {
@@ -80,6 +82,8 @@
           cursor: default;
           &:hover {
             box-shadow: none;
+            color: $color-grey;
+            background-color: $color-black;
           }
         }
         .calendar-cell-selected {
@@ -91,9 +95,11 @@
         .noMoreSelection, .calendar-cell-today {
           background-color: $color-grey;
           border-radius: 0;
+          color: $color-white;
           &:hover {
+            background-color: $color-grey;
             box-shadow: none;
-            cursor: default;
+            cursor: default;            
           }
         }
       }

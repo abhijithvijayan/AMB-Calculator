@@ -1,7 +1,38 @@
 #home {
   padding-top: 8vh;
+  #acc-summary {
+    padding-bottom: 2em;
+    h2 {
+      font-weight: $font-weight-semibold;
+      padding-bottom: 0.3em;
+    }
+    table {
+      padding-bottom: 1em;
+      .deleteNode {
+        display: flex;
+      }
+      tr, .nodeHead {
+        width: 82%;
+        border: 2px solid $color-light-pink;
+        line-height: 2.5;     
+        #leftNode {
+          width: 55%;
+          padding-right: .2em;
+          padding-right: .3em;
+          border-right: 2px solid $color-light-pink;
+        }   
+        #rightNode {
+          padding-left: 0.3em;
+          padding-right: .3em;
+          width: 100%;
+        }
+    
+      }
+    }
+  }
   #final-content-holder {
     .content-holder {
+      padding-bottom: 2em;
       h2 {
         font-weight: $font-weight-semibold;
         padding-bottom: 0.4em;
