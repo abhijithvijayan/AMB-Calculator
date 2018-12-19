@@ -20,12 +20,12 @@ var i,
 var initialize = () => {
   hide("#final-content-holder");
   hide("#acc-summary");
-  hide('.new');
+  hide(".new");
   resetInput();
 };
 
 // popping from array
-var deleteElement = (val) => {
+var deleteElement = val => {
   for (i = 0; i < Ar.length; ++i) {
     if (val == Ar[i]) {
       // console.log("Deleted:" + Ar[i] + "at:" + varCounter);
@@ -45,8 +45,7 @@ var calculation = date => {
   if (amount < 0) {
     alert("Please enter Amount");
     return;
-  } 
-  else {
+  } else {
     addItem(date, amount);
     sum += Math.floor(Math.round(amount));
     removeSelectProperty();
@@ -65,7 +64,7 @@ var addItem = (day, rupee) => {
   );
   ul.appendChild(li);
   show("#acc-summary");
-}
+};
 
 // calculating function
 var calcAvg = (sum, days, total_days) => {
@@ -75,17 +74,18 @@ var calcAvg = (sum, days, total_days) => {
   var avgMinBal = Math.round((total_days * 1000 - sum) / remDays);
   if (avgMinBal <= -1) {
     final(curAvg, 0);
-  } 
-  else {
+  } else {
     final(curAvg, avgMinBal);
   }
-}
+};
 
 // Display Average
 function final(curAvg, avgMinBal) {
   show("#final-content-holder");
-  document.querySelector(".avgCurrent").innerHTML = "<strong>" + curAvg + "</strong>";
-  document.querySelector(".finalCalc").innerHTML = "<strong>" + avgMinBal + "</strong>";
+  document.querySelector(".avgCurrent").innerHTML =
+    "<strong>" + curAvg + "</strong>";
+  document.querySelector(".finalCalc").innerHTML =
+    "<strong>" + avgMinBal + "</strong>";
 }
 
 // submit button event listener
@@ -93,11 +93,9 @@ document.querySelector(".submit-btn").addEventListener("click", () => {
   amount = document.querySelector(".amount").value;
   if (Ar.length == 0) {
     alert("Please Select Date");
-  } 
-  else if (amount == "") {
+  } else if (amount == "") {
     alert("Please Enter Amount");
-  } 
-  else {
+  } else {
     for (i = 0; i < varCounter; ++i) {
       calculation(Ar[i]);
     }
@@ -112,20 +110,18 @@ document.querySelector(".submit-btn").addEventListener("click", () => {
 document.getElementById("calculate").addEventListener("click", () => {
   if (passCount == 0) {
     alert("Select a Date");
-  } 
-  else {
+  } else {
     calcAvg(sum, passCount, total_days);
     varCounter = 0;
     if (sum == 0) {
       alert("Please enter Amount");
-    } 
-    else {
+    } else {
       hide("#calendar-wrap");
       hide("#calculate");
       hide(".form-row");
       hide(".header-text");
       hide(".buttons-group");
-      document.querySelector('.new').style.display = "";
+      document.querySelector(".new").style.display = "";
     }
   }
 });
@@ -133,7 +129,7 @@ document.getElementById("calculate").addEventListener("click", () => {
 // reset input function
 var resetInput = () => {
   document.querySelector(".amount").value = "";
-}
+};
 
 // reset function
 var reset = () => {
@@ -143,33 +139,33 @@ var reset = () => {
   resetInput();
   initialize();
   // deleting all nodes using jquery
-  $('.deleteNode').remove();
+  $(".deleteNode").remove();
   // making clickable
   $("td").removeClass("noMoreSelection");
-}
+};
 
 // reset button
 document.querySelector(".reset").addEventListener("click", reset);
 
 // readmore button
-document.getElementById('readmore').addEventListener('click', () => {
+document.getElementById("readmore").addEventListener("click", () => {
   show("#overlay");
 });
 
 //overlay button
-document.getElementById('overlay').addEventListener('click', () => {
+document.getElementById("overlay").addEventListener("click", () => {
   hide("#overlay");
 });
 
 // hide elements
-var hide = (element) => {
+var hide = element => {
   document.querySelector(element).style.display = "none";
-}
+};
 
 // show elements
-var show = (element) => {
+var show = element => {
   document.querySelector(element).style.display = "block";
-}
+};
 
 /* ========================================================================== */
 
@@ -442,7 +438,7 @@ class Calendar {
 }
 
 // push to array fn
-var readArray = (value) => {
+var readArray = value => {
   Ar.push(value);
   ++varCounter;
   // console.log("Inserted:" + value + "at" + varCounter);
