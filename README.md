@@ -32,5 +32,5 @@ Code released under the [MIT License](LICENSE.md).
 
 https://www.federalbank.co.in/amb-calculator
 
-![](https://i.imgur.com/Dp64g8u.png)
-![](https://i.imgur.com/vMT0Rdy.png)
+![](https://i.imgur.com/BV8Rt63.png)
+![](https://i.imgur.com/PISdetI.png)
