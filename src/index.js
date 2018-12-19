@@ -124,11 +124,11 @@ document.getElementById("calculate").addEventListener("click", () => {
       alert("Please enter Amount");
     } else {
       hide("#calendar-wrap");
-      hide("#calculate");
       hide(".form-row");
       hide(".header-text");
       hide(".buttons-group");
       document.querySelector(".new").style.display = "";
+      document.querySelector("#calculate").style.display = "none";
     }
   }
 });

@@ -23,7 +23,7 @@ https://abhijithvijayan.github.io/AMB-Calculator/
 - [x] Calendar Implementation 
 - [ ] GUI Improvements
 - [ ] Min Balance Scheme
-- [ ] Account Summary Table View
+- [x] Account Summary Table View
 
 ## Licence
 Code released under the [MIT License](LICENSE.md).
